@@ -65,13 +65,27 @@ function initEventListeners() {
     }
   });
 
-  // Architecture Modal
-  document.getElementById("archBtn").addEventListener("click", () => {
-    document.getElementById("archModal").style.display = "flex";
-  });
-  document.getElementById("closeArchModal").addEventListener("click", () => {
-    document.getElementById("archModal").style.display = "none";
-  });
+  // Nav View Tabs (Swarm Workspace vs 9-Layer Architecture)
+  const tabChatBtn = document.getElementById("tabChatBtn");
+  const tabArchBtn = document.getElementById("tabArchBtn");
+  const chatView = document.getElementById("chatViewWrapper");
+  const archView = document.getElementById("archViewWrapper");
+
+  if (tabChatBtn && tabArchBtn && chatView && archView) {
+    tabChatBtn.addEventListener("click", () => {
+      tabChatBtn.classList.add("active");
+      tabArchBtn.classList.remove("active");
+      chatView.style.display = "flex";
+      archView.style.display = "none";
+    });
+
+    tabArchBtn.addEventListener("click", () => {
+      tabArchBtn.classList.add("active");
+      tabChatBtn.classList.remove("active");
+      chatView.style.display = "none";
+      archView.style.display = "flex";
+    });
+  }
 
   // Settings Modal
   document.getElementById("settingsBtn").addEventListener("click", openSettingsModal);
@@ -83,6 +97,40 @@ function initEventListeners() {
     API.updateLLMConfig(currentProvider, customApiKey);
     closeSettingsModal();
     appendSystemNotice(`AI Provider configured to '${currentProvider}'.`);
+  });
+}
+
+function updateSwarmChips(activeAgents) {
+  const chips = {
+    chipSupervisor: false,
+    chipCustomer: false,
+    chipRisk: false,
+    chipCredit: false,
+    chipCompliance: false,
+    chipAdvisory: false,
+    chipNotification: false
+  };
+
+  (activeAgents || []).forEach(name => {
+    const lower = name.toLowerCase();
+    if (lower.includes("supervisor")) chips.chipSupervisor = true;
+    if (lower.includes("customer")) chips.chipCustomer = true;
+    if (lower.includes("risk") || lower.includes("fraud")) chips.chipRisk = true;
+    if (lower.includes("credit") || lower.includes("loan")) chips.chipCredit = true;
+    if (lower.includes("compliance") || lower.includes("aml")) chips.chipCompliance = true;
+    if (lower.includes("advisory")) chips.chipAdvisory = true;
+    if (lower.includes("notification")) chips.chipNotification = true;
+  });
+
+  Object.keys(chips).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      if (chips[id]) {
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
+    }
   });
 }
 
@@ -188,6 +236,18 @@ function renderTransactions(transactionsMap) {
 }
 
 async function handleUserMessage(message) {
+  // Ensure chat view is visible if user was on architecture tab
+  const chatView = document.getElementById("chatViewWrapper");
+  const archView = document.getElementById("archViewWrapper");
+  const tabChatBtn = document.getElementById("tabChatBtn");
+  const tabArchBtn = document.getElementById("tabArchBtn");
+  if (chatView && archView && tabChatBtn && tabArchBtn) {
+    chatView.style.display = "flex";
+    archView.style.display = "none";
+    tabChatBtn.classList.add("active");
+    tabArchBtn.classList.remove("active");
+  }
+
   // Append user message bubble
   appendUserBubble(message);
 
@@ -210,6 +270,9 @@ async function handleUserMessage(message) {
 
     // Update Observability DAG Visualizer with active agents
     dagVisualizer.highlightAgents(trace.active_agents || []);
+
+    // Update Swarm status banner chips
+    updateSwarmChips(trace.active_agents || []);
 
     // Update Pipeline Stepper badges
     updatePipelineStepper(trace.workflow_dag || []);
