@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS Banking AI — Official Demonstration Video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #070b14;
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      width: 100%;
+      height: 60px;
+      background: #0d1322;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      box-sizing: border-box;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .video-container {
+      width: 90%;
+      max-width: 1100px;
+      margin-top: 30px;
+      background: #0d1322;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .info-section {
+      width: 90%;
+      max-width: 1100px;
+      margin-top: 24px;
+      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    h2 {
+      font-size: 1.1rem;
+      margin-top: 0;
+      color: #38bdf8;
+    }
+    p {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #0284c7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">N</div>
+      <span>NEXUS Core Banking AI</span>
+    </div>
+    <div>
+      <a href="/" style="color:#38bdf8; text-decoration:none; font-size:0.85rem; font-weight:600;">← Back to Banking Portal</a>
+    </div>
+  </header>
+
+  <div class="video-container">
+    <video controls autoplay loop>
+      <source src="/static/demo_video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="info-section">
+    <div class="card">
+      <h2>🎬 Video Walkthrough Highlights</h2>
+      <p>
+        This video presents the complete 9-layer simulated real-time banking architecture and multi-agent operational workflow:
+      </p>
+      <ul style="font-size:0.82rem; color:#cbd5e1; line-height:1.7;">
+        <li><strong>0:00 - 0:25</strong>: 9-Layer Enterprise Architecture Blueprint Overview</li>
+        <li><strong>0:25 - 0:55</strong>: Autonomous Agent Swarm & Core Banking Simulation</li>
+        <li><strong>0:55 - 1:20</strong>: Use Case 1: Fraud Anomaly Detection & Autonomous Card Lock (Fraud Score 92/100)</li>
+        <li><strong>1:20 - 1:45</strong>: Use Case 2: Credit Underwriting & Auto Loan Pre-Approval ($25k, fixed 4.89% APR)</li>
+        <li><strong>1:45 - 2:10</strong>: Use Case 3: International Wire Transfer & AML Gate with Human-in-the-Loop Approval</li>
+        <li><strong>2:10 - 2:30</strong>: Layer 3 Zero-Trust AI Gateway Security (PII Redaction of SSN & PAN)</li>
+        <li><strong>2:30 - 3:00</strong>: Observability Platform, FinOps Telemetry & 13/13 Passing Live Tests</li>
+      </ul>
+      <a href="/" class="btn">Launch Live Interactive App</a>
+    </div>
+
+    <div class="card">
+      <h2>📁 Submission Files</h2>
+      <p style="font-size:0.8rem;">
+        • <strong>Video File</strong>: <code>demo_video.mp4</code><br>
+        • <strong>Architecture Document</strong>: <code>ARCHITECTURE_AND_APPROACH.md</code><br>
+        • <strong>Video Script</strong>: <code>DEMO_VIDEO_WALKTHROUGH.md</code><br>
+        • <strong>Source Code</strong>: Git Repository Root
+      </p>
+      <p style="font-size:0.75rem; color:#64748b; margin-top:14px;">
+        NEXUS Multi-Agent Banking MVP • Submission Ready • October 2026
+      </p>
+    </div>
+  </div>
+</body>
+</html>
