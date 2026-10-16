@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <!-- Styles -->
-  <link rel="stylesheet" href="/static/css/style.css">
+  <!-- Stylesheet with cache busting -->
+  <link rel="stylesheet" href="/static/css/style.css?v=3">
 </head>
 <body>
 
@@ -21,42 +21,51 @@
     <div class="brand-section">
       <div class="brand-logo">N</div>
       <div class="brand-title">
-        <h1>NEXUS Core Banking <span class="badge">Multi-Agent AI</span></h1>
+        <h1>NEXUS Core Banking <span class="badge">Multi-Agent</span></h1>
       </div>
       <div class="status-pill">
         <span class="status-dot"></span>
-        <span>Gateway: Zero-Trust Active</span>
+        <span>Zero-Trust Shield Active</span>
       </div>
     </div>
 
     <!-- Center View Switcher Tabs -->
-    <div class="nav-tabs">
-      <button class="nav-tab-btn active" id="tabChatBtn">💬 Swarm Workspace</button>
-      <button class="nav-tab-btn" id="tabArchBtn">🏛️ 9-Layer Architecture</button>
+    <div class="nav-tabs" style="display:inline-flex; align-items:center; background:rgba(22,30,49,0.9); border:1px solid rgba(255,255,255,0.12); border-radius:20px; padding:2px;">
+      <button class="nav-tab-btn active" id="tabChatBtn" style="background:linear-gradient(135deg,#0284c7,#2563eb); color:#fff; border:none; border-radius:16px; padding:4px 12px; font-size:0.74rem; font-weight:700; cursor:pointer;">
+        💬 Swarm Workspace
+      </button>
+      <button class="nav-tab-btn" id="tabArchBtn" style="background:transparent; color:#94a3b8; border:none; border-radius:16px; padding:4px 12px; font-size:0.74rem; font-weight:600; cursor:pointer;">
+        🏛️ 9-Layer Architecture
+      </button>
     </div>
 
     <div class="header-controls">
+      <!-- Auto Demo Button -->
+      <button id="autoDemoBtn" class="btn-custom" style="background:linear-gradient(135deg,#10b981,#059669); color:white; border:none; font-weight:700;" title="Auto-Play 6 Banking Scenarios for Video Recording">
+        ▶ Auto Demo
+      </button>
+
       <!-- Customer Context Switcher -->
       <select id="customerSelect" class="select-custom" title="Switch Customer Persona">
-        <option value="CUST-1001" selected>👤 Elena Rostova (Wealth • $110k)</option>
-        <option value="CUST-1002">🏢 Marcus Vance (Business • $86k)</option>
-        <option value="CUST-1003">🛍️ Priya Sharma (Retail • $18k)</option>
+        <option value="CUST-1001" selected>👤 Elena ($110k)</option>
+        <option value="CUST-1002">🏢 Marcus ($86k)</option>
+        <option value="CUST-1003">🛍️ Priya ($18k)</option>
       </select>
 
       <!-- LLM Provider Selector -->
       <select id="providerSelect" class="select-custom" title="AI Model / Engine">
-        <option value="cognitive" selected>⚡ Built-in Cognitive Agent Engine</option>
-        <option value="gemini">✨ Google Gemini 2.5 Flash</option>
-        <option value="openai">🔮 OpenAI GPT-4o</option>
+        <option value="cognitive" selected>⚡ Cognitive (Zero-Key)</option>
+        <option value="gemini">✨ Gemini 2.5</option>
+        <option value="openai">🔮 GPT-4o</option>
       </select>
 
       <!-- Quick Action Buttons -->
       <button id="settingsBtn" class="btn-custom" title="Configure API Keys">⚙️ Settings</button>
-      <button id="resetBtn" class="btn-custom" title="Reset Simulation Data">🔄 Reset DB</button>
+      <button id="resetBtn" class="btn-custom" title="Reset Simulation Data">🔄 Reset</button>
     </div>
   </header>
 
-  <!-- 3-Column Responsive Workspace -->
+  <!-- 3-Column Workspace -->
   <main class="app-container">
     
     <!-- LEFT COLUMN: Core Banking Customer Portal -->
@@ -84,7 +93,7 @@
           </div>
         </div>
 
-        <div style="margin-top:8px; font-size:0.7rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+        <div style="margin-top:6px; font-size:0.66rem; color:var(--text-muted); display:flex; justify-content:space-between;">
           <span>Checking: <strong style="color:#f8fafc" id="checkingBalanceVal">$24,850.40</strong></span>
           <span>Savings: <strong style="color:#f8fafc" id="savingsBalanceVal">$85,200.00</strong></span>
         </div>
@@ -94,7 +103,7 @@
       <div class="card-widget glass">
         <div class="panel-header" style="margin-bottom:0;">
           <span>Primary Payment Card</span>
-          <span style="font-size:0.65rem; color:var(--text-muted)">Visa Infinite</span>
+          <span style="font-size:0.62rem; color:var(--text-muted)">Visa Infinite</span>
         </div>
         
         <div class="credit-card-visual" id="mainCreditCard">
@@ -119,7 +128,7 @@
             <span class="scenario-icon">🚨</span>
             <div class="scenario-text">
               <strong>Fraud Anomaly & Card Lock</strong>
-              <span>Risk agent flags London charge & freezes card</span>
+              <span>Risk agent flags charge & freezes card</span>
             </div>
           </button>
 
@@ -127,7 +136,7 @@
             <span class="scenario-icon">🚗</span>
             <div class="scenario-text">
               <strong>Auto Loan Pre-Approval</strong>
-              <span>Credit agent queries bureau & computes DTI/APR</span>
+              <span>Credit agent checks bureau & DTI/APR</span>
             </div>
           </button>
 
@@ -135,7 +144,7 @@
             <span class="scenario-icon">🌐</span>
             <div class="scenario-text">
               <strong>Wire Transfer & AML Gate</strong>
-              <span>Compliance agent runs OFAC & CTR approval gate</span>
+              <span>Compliance agent runs OFAC & CTR approval</span>
             </div>
           </button>
 
@@ -143,7 +152,7 @@
             <span class="scenario-icon">📊</span>
             <div class="scenario-text">
               <strong>Account 360 & Spending Audit</strong>
-              <span>Customer agent retrieves full multi-account view</span>
+              <span>Customer agent retrieves full portfolio</span>
             </div>
           </button>
 
@@ -151,7 +160,7 @@
             <span class="scenario-icon">🔒</span>
             <div class="scenario-text">
               <strong>Lost Card Emergency Lock</strong>
-              <span>Deactivates physical card & provisions virtual</span>
+              <span>Locks physical card & provisions virtual</span>
             </div>
           </button>
 
@@ -159,19 +168,19 @@
             <span class="scenario-icon">💡</span>
             <div class="scenario-text">
               <strong>Financial Advisory & Savings</strong>
-              <span>Advisory agent designs wealth yield plan</span>
+              <span>Advisory agent designs CD yield plan</span>
             </div>
           </button>
 
         </div>
       </section>
 
-      <!-- Recent Transactions Table -->
+      <!-- Recent Activity -->
       <section style="flex:1;">
         <div class="panel-header">
           <span>Recent Activity & Risk Ledger</span>
         </div>
-        <div id="transactionsContainer" style="display:flex; flex-direction:column; gap:5px;">
+        <div id="transactionsContainer" style="display:flex; flex-direction:column; gap:4px;">
           <!-- Populated by JavaScript -->
         </div>
       </section>
@@ -183,7 +192,7 @@
       
       <!-- Real-Time Swarm Status Banner -->
       <div class="swarm-status-bar">
-        <span style="font-size:0.68rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.04em;">Active Agents:</span>
+        <span style="font-size:0.65rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.04em;">Active Swarm:</span>
         <div class="swarm-agents-pills" id="swarmAgentPills">
           <span class="agent-chip active" id="chipSupervisor">🤖 Supervisor</span>
           <span class="agent-chip" id="chipCustomer">👤 Customer</span>
@@ -208,16 +217,16 @@
         <div class="chat-stream" id="chatStream">
           
           <!-- Welcome Hero Banner -->
-          <div style="text-align: center; padding: 20px 16px; color: var(--text-secondary);">
-            <div style="font-size: 2.2rem; margin-bottom: 8px;">🏛️</div>
-            <h2 style="font-size: 1.2rem; color: #fff; margin-bottom: 4px; font-weight:700;">
+          <div style="text-align: center; padding: 16px 12px; color: var(--text-secondary);">
+            <div style="font-size: 2rem; margin-bottom: 6px;">🏛️</div>
+            <h2 style="font-size: 1.15rem; color: #fff; margin-bottom: 4px; font-weight:700;">
               NEXUS Autonomous Multi-Agent Banking
             </h2>
-            <p style="font-size: 0.82rem; max-width: 520px; margin: 0 auto; color:#94a3b8; line-height:1.5;">
-              Simulated enterprise banking platform with real-time multi-agent orchestration, core banking tools, zero-trust PII redaction, and human-in-the-loop compliance gates.
+            <p style="font-size: 0.8rem; max-width: 500px; margin: 0 auto; color:#94a3b8; line-height:1.4;">
+              Simulated core banking platform with real-time multi-agent orchestration, banking tools, zero-trust PII redaction, and human-in-the-loop compliance gates.
             </p>
-            <div style="margin-top:12px; font-size:0.72rem; color:var(--accent-cyan); display:inline-flex; align-items:center; gap:6px; padding:4px 12px; background:rgba(56,189,248,0.1); border-radius:9999px; border:1px solid rgba(56,189,248,0.25);">
-              <span>👉 Click any of the 6 test scenarios on the left or type your prompt below!</span>
+            <div style="margin-top:10px; font-size:0.7rem; color:var(--accent-cyan); display:inline-flex; align-items:center; gap:5px; padding:3px 10px; background:rgba(56,189,248,0.1); border-radius:9999px; border:1px solid rgba(56,189,248,0.25);">
+              <span>👉 Click any of the 6 scenarios on the left or click <strong>'▶ Auto Demo'</strong> in the header!</span>
             </div>
           </div>
 
@@ -229,12 +238,12 @@
             <input 
               type="text" 
               id="chatInput" 
-              placeholder="Ask a question, query loans, flag suspicious transactions, or request wires..." 
+              placeholder="Ask a question, query loans, report suspicious charges, or request wires..." 
               autocomplete="off"
               required
             />
             <button type="submit" class="send-btn" title="Send Request">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
               </svg>
@@ -245,11 +254,11 @@
 
       <!-- View Container 2: Direct In-Page 9-Layer Architecture Blueprint -->
       <div id="archViewWrapper" class="architecture-container">
-        <div style="margin-bottom:8px;">
-          <h3 style="font-size:1.05rem; color:#fff; display:flex; align-items:center; gap:8px;">
+        <div style="margin-bottom:6px;">
+          <h3 style="font-size:1rem; color:#fff; display:flex; align-items:center; gap:6px;">
             <span>🏛️</span> Target 9-Layer Banking Architecture (Assignment Blueprint)
           </h3>
-          <p style="font-size:0.76rem; color:#94a3b8;">
+          <p style="font-size:0.72rem; color:#94a3b8;">
             Complete reference implementation mapping every layer from the banking architecture diagram.
           </p>
         </div>
@@ -311,7 +320,7 @@
       <!-- Trace Header -->
       <div class="panel-header">
         <span>Trace Observability</span>
-        <span id="traceIdDisplay" style="font-family:var(--font-mono); font-size:0.65rem; color:var(--accent-cyan);">TRC-STANDBY</span>
+        <span id="traceIdDisplay" style="font-family:var(--font-mono); font-size:0.62rem; color:var(--accent-cyan);">TRC-STANDBY</span>
       </div>
 
       <!-- Metrics Grid -->
@@ -331,20 +340,20 @@
       </div>
 
       <!-- AI Control Plane / Guardrails Card -->
-      <div class="glass" style="padding:10px; border-radius:var(--radius-sm);">
-        <div style="font-size:0.7rem; font-weight:700; color:#cbd5e1; margin-bottom:5px; display:flex; justify-content:space-between;">
+      <div class="glass" style="padding:8px; border-radius:var(--radius-sm);">
+        <div style="font-size:0.68rem; font-weight:700; color:#cbd5e1; margin-bottom:4px; display:flex; justify-content:space-between;">
           <span>AI Gateway Controls</span>
           <span style="color:var(--accent-emerald)">Active ●</span>
         </div>
-        <div style="font-size:0.66rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom:3px;">
+        <div style="font-size:0.64rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom:2px;">
           <span>PII Masking Filter:</span>
           <strong id="piiRedactedMetricVal" style="color:var(--accent-cyan)">0 Redacted</strong>
         </div>
-        <div style="font-size:0.66rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom:3px;">
+        <div style="font-size:0.64rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom:2px;">
           <span>MCP Tools Registered:</span>
           <strong id="toolsRegisteredVal" style="color:#f8fafc">13 Tools</strong>
         </div>
-        <div style="font-size:0.66rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+        <div style="font-size:0.64rem; color:var(--text-muted); display:flex; justify-content:space-between;">
           <span>Total PII Shielded:</span>
           <strong id="totalPiiVal" style="color:var(--accent-purple)">0 entities</strong>
         </div>
@@ -356,7 +365,7 @@
           <span>Active Agent Swarm Topology</span>
         </div>
         <div class="dag-container">
-          <svg id="dagSvg" viewBox="0 0 340 180"></svg>
+          <svg id="dagSvg" viewBox="0 0 280 140"></svg>
         </div>
       </div>
 
@@ -366,7 +375,7 @@
           <span>Agent Trajectory & MCP Tool Calls</span>
         </div>
         <div class="trajectory-list" id="trajectoryList">
-          <div style="font-size:0.72rem; color:var(--text-muted); padding:8px; text-align:center;">
+          <div style="font-size:0.7rem; color:var(--text-muted); padding:6px; text-align:center;">
             Awaiting prompt execution...
           </div>
         </div>
@@ -378,18 +387,18 @@
 
   <!-- MODAL: Settings & API Key -->
   <div class="modal-overlay" id="settingsModal">
-    <div class="modal-content glass" style="max-width:480px;">
+    <div class="modal-content glass" style="max-width:440px;">
       <div class="modal-header">
-        <h3 style="font-size:1.05rem; color:#fff;">⚙️ AI Provider & Model Settings</h3>
+        <h3 style="font-size:1rem; color:#fff;">⚙️ AI Provider & Model Settings</h3>
         <button class="close-btn" id="closeSettingsModal">&times;</button>
       </div>
 
-      <div style="font-size:0.78rem; color:#cbd5e1; margin-bottom:12px;">
+      <div style="font-size:0.75rem; color:#cbd5e1; margin-bottom:10px;">
         Choose between the <strong>Built-in Cognitive Engine</strong> (100% offline, zero-key required) or connect your live API key:
       </div>
 
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.72rem; color:var(--text-muted); display:block; margin-bottom:5px;">Active AI Engine</label>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:4px;">Active AI Engine</label>
         <select id="modalProviderSelect" class="select-custom" style="width:100%;">
           <option value="cognitive">⚡ Built-in Cognitive Multi-Agent Engine (Offline/Zero-Key)</option>
           <option value="gemini">✨ Google Gemini 2.5 Flash</option>
@@ -397,16 +406,16 @@
         </select>
       </div>
 
-      <div style="margin-bottom:16px;">
-        <label style="font-size:0.72rem; color:var(--text-muted); display:block; margin-bottom:5px;">API Key (Optional)</label>
+      <div style="margin-bottom:14px;">
+        <label style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:4px;">API Key (Optional)</label>
         <input 
           type="password" 
           id="apiKeyInput" 
           placeholder="AIzaSy... or sk-proj-..." 
           class="select-custom" 
-          style="width:100%; padding:8px; font-family:var(--font-mono); font-size:0.78rem;"
+          style="width:100%; padding:8px; font-family:var(--font-mono); font-size:0.76rem;"
         />
-        <p style="font-size:0.65rem; color:var(--text-muted); margin-top:3px;">
+        <p style="font-size:0.62rem; color:var(--text-muted); margin-top:3px;">
           Left blank? The system runs with full multi-agent reasoning using the Built-in Cognitive Engine.
         </p>
       </div>
@@ -418,10 +427,10 @@
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="/static/js/api.js"></script>
-  <script src="/static/js/visualizer.js"></script>
-  <script src="/static/js/app.js"></script>
+  <!-- Scripts with cache busting -->
+  <script src="/static/js/api.js?v=3"></script>
+  <script src="/static/js/visualizer.js?v=3"></script>
+  <script src="/static/js/app.js?v=3"></script>
 
 </body>
 </html>

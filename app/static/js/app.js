@@ -98,6 +98,58 @@ function initEventListeners() {
     closeSettingsModal();
     appendSystemNotice(`AI Provider configured to '${currentProvider}'.`);
   });
+
+  // Auto-Play Demo Feature
+  let isDemoRunning = false;
+  let demoAbort = false;
+  const autoDemoBtn = document.getElementById("autoDemoBtn");
+  if (autoDemoBtn) {
+    autoDemoBtn.addEventListener("click", async () => {
+      if (isDemoRunning) {
+        demoAbort = true;
+        isDemoRunning = false;
+        autoDemoBtn.innerHTML = "▶ Auto Demo";
+        autoDemoBtn.style.background = "linear-gradient(135deg,#10b981,#059669)";
+        appendSystemNotice("Automated demo stopped.");
+        return;
+      }
+
+      isDemoRunning = true;
+      demoAbort = false;
+      autoDemoBtn.innerHTML = "⏹️ Stop Demo";
+      autoDemoBtn.style.background = "linear-gradient(135deg,#ef4444,#dc2626)";
+
+      const demoPrompts = [
+        "I didn't authorize a $1,280 charge in London from yesterday! What is that? Help!",
+        "Can I get an auto loan of $25,000 for 48 months?",
+        "Transfer $15,000 to John Doe in Germany for invoice #9921",
+        "Give me an overview of my accounts and balance",
+        "I lost my card at the airport! Block it immediately",
+        "Analyze my spending and give me recommendations to save $500/month"
+      ];
+
+      for (let i = 0; i < demoPrompts.length; i++) {
+        if (demoAbort) break;
+        const prompt = demoPrompts[i];
+        document.getElementById("chatInput").value = prompt;
+        await handleUserMessage(prompt);
+        
+        // If HITL wire transfer card appeared, auto-approve after 2s
+        if (prompt.includes("Transfer $15,000")) {
+          await new Promise(r => setTimeout(r, 2000));
+          const hitlApproveBtn = document.querySelector(".hitl-actions button.btn-primary");
+          if (hitlApproveBtn) hitlApproveBtn.click();
+        }
+
+        await new Promise(r => setTimeout(r, 3500));
+      }
+
+      isDemoRunning = false;
+      autoDemoBtn.innerHTML = "▶ Auto Demo";
+      autoDemoBtn.style.background = "linear-gradient(135deg,#10b981,#059669)";
+      appendSystemNotice("Automated 6-scenario demonstration completed successfully!");
+    });
+  }
 }
 
 function updateSwarmChips(activeAgents) {
