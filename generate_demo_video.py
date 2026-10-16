@@ -357,9 +357,16 @@ def render_scene_10():
     return img
 
 def main():
+    import av
+    import shutil
     video_path = "demo_video.mp4"
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(video_path, fourcc, FPS, (WIDTH, HEIGHT))
+    
+    container = av.open(video_path, mode='w')
+    stream = container.add_stream('libx264', rate=FPS)
+    stream.width = WIDTH
+    stream.height = HEIGHT
+    stream.pix_fmt = 'yuv420p'
+    stream.options = {'crf': '22', 'preset': 'fast'}
 
     scenes = [
         (render_scene_1, 10), # 10s
@@ -375,25 +382,35 @@ def main():
     ]
 
     total_frames = sum(dur * FPS for _, dur in scenes)
-    print(f"Generating professional demo video ({total_frames} frames, {len(scenes)} scenes)...")
+    print(f"Generating broadcast-grade H.264 demo video ({total_frames} frames, {len(scenes)} scenes)...")
 
     frame_count = 0
     t0 = time.time()
     for scene_idx, (render_fn, duration_sec) in enumerate(scenes):
         pil_img = render_fn()
-        # Convert PIL Image to BGR OpenCV format
-        cv_img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
+        frame = av.VideoFrame.from_image(pil_img)
         frames_for_scene = duration_sec * FPS
         for _ in range(frames_for_scene):
-            out.write(cv_img)
+            for packet in stream.encode(frame):
+                container.mux(packet)
             frame_count += 1
         print(f"Scene {scene_idx+1}/{len(scenes)} rendered ({duration_sec}s). Total frames: {frame_count}/{total_frames}")
 
-    out.release()
+    # Flush encoder
+    for packet in stream.encode():
+        container.mux(packet)
+
+    container.close()
+    
+    # Copy to static web folder as well
+    static_video_path = os.path.join("app", "static", "demo_video.mp4")
+    shutil.copyfile(video_path, static_video_path)
+
     elapsed = round(time.time() - t0, 2)
     file_size_mb = round(os.path.getsize(video_path) / (1024 * 1024), 2)
-    print(f"\nSUCCESS: Video created at {video_path}")
+    print(f"\nSUCCESS: H.264 Video created at {video_path} and copied to {static_video_path}")
     print(f"File Size: {file_size_mb} MB | Rendering Time: {elapsed}s | Total Duration: {total_frames // FPS} seconds")
 
 if __name__ == "__main__":
     main()
+
