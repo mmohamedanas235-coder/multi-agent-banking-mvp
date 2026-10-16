@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS Core Banking AI — Autonomous Multi-Agent System</title>
+  <meta name="description" content="Simulated Banking Multi-Agent Operations System with Supervisor Orchestration, Fraud Detection, Credit Underwriting, and Real-time Observability.">
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-logo">N</div>
+      <div class="brand-title">
+        <h1>NEXUS Core Banking <span class="badge">Multi-Agent AI v1.0</span></h1>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span>Gateway: Zero-Trust Active</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <!-- Customer Context Switcher -->
+      <select id="customerSelect" class="select-custom" title="Switch Customer Persona">
+        <option value="CUST-1001" selected>👤 Elena Rostova (Wealth • $110k)</option>
+        <option value="CUST-1002">🏢 Marcus Vance (Business • $86k)</option>
+        <option value="CUST-1003">🛍️ Priya Sharma (Retail • $18k)</option>
+      </select>
+
+      <!-- LLM Provider Selector -->
+      <select id="providerSelect" class="select-custom" title="AI Model / Engine">
+        <option value="cognitive" selected>⚡ Built-in Cognitive Agent Engine</option>
+        <option value="gemini">✨ Google Gemini 2.5 Flash</option>
+        <option value="openai">🔮 OpenAI GPT-4o</option>
+      </select>
+
+      <!-- Quick Action Buttons -->
+      <button id="settingsBtn" class="btn-custom" title="Configure API Keys">⚙️ Settings</button>
+      <button id="archBtn" class="btn-custom" title="View 9-Layer Architecture Blueprint">🏛️ Architecture</button>
+      <button id="resetBtn" class="btn-custom" title="Reset Simulation Data">🔄 Reset DB</button>
+    </div>
+  </header>
+
+  <!-- 3-Column Workspace -->
+  <main class="app-container">
+    
+    <!-- LEFT COLUMN: Core Banking Customer Portal -->
+    <aside class="left-sidebar" id="leftBankingPanel">
+      
+      <!-- Customer Card -->
+      <div class="customer-card glass">
+        <div class="customer-header">
+          <div class="customer-avatar" id="custAvatar">E</div>
+          <div class="customer-info">
+            <h3 id="custName">Elena Rostova</h3>
+            <p id="custEmail">elena.rostova@nexusbank.corp</p>
+            <span class="tier-badge" id="custTier">PREMIER WEALTH</span>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-box">
+            <div class="label">Liquid Assets</div>
+            <div class="value" id="liquidBalanceVal">$110,050.40</div>
+          </div>
+          <div class="stat-box">
+            <div class="label">FICO Score</div>
+            <div class="value" style="color:var(--accent-emerald)" id="creditScoreVal">785</div>
+          </div>
+        </div>
+
+        <div style="margin-top:10px; font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+          <span>Checking: <strong style="color:#f8fafc" id="checkingBalanceVal">$24,850.40</strong></span>
+          <span>Savings: <strong style="color:#f8fafc" id="savingsBalanceVal">$85,200.00</strong></span>
+        </div>
+      </div>
+
+      <!-- Payment Card Visual Widget -->
+      <div class="card-widget glass">
+        <div class="panel-header" style="margin-bottom:0;">
+          <span>Primary Payment Card</span>
+          <span style="font-size:0.7rem; color:var(--text-muted)">Visa Infinite</span>
+        </div>
+        
+        <div class="credit-card-visual" id="mainCreditCard">
+          <div class="card-top">
+            <div class="chip"></div>
+            <span class="card-status-pill status-active" id="cardStatusPill">● ACTIVE</span>
+          </div>
+          <div class="card-num" id="cardNumDisplay">4111-XXXX-XXXX-4912</div>
+          <div class="card-bottom">
+            <span>ELENA ROSTOVA</span>
+            <span>EXP 08/29</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1-Click Interactive Test Scenarios -->
+      <section class="scenarios-section">
+        <h4>1-Click Test Scenarios</h4>
+        <div class="scenario-list">
+          
+          <button class="scenario-btn" data-prompt="I didn't authorize a $1,280 charge in London from yesterday! What is that? Help!">
+            <span class="scenario-icon">🚨</span>
+            <div class="scenario-text">
+              <strong>Fraud Anomaly & Card Lock</strong>
+              <span>Risk agent flags London charge & freezes card</span>
+            </div>
+          </button>
+
+          <button class="scenario-btn" data-prompt="Can I get an auto loan of $25,000 for 48 months?">
+            <span class="scenario-icon">🚗</span>
+            <div class="scenario-text">
+              <strong>Auto Loan Pre-Approval</strong>
+              <span>Credit agent queries bureau & computes DTI/APR</span>
+            </div>
+          </button>
+
+          <button class="scenario-btn" data-prompt="Transfer $15,000 to John Doe in Germany for invoice #9921">
+            <span class="scenario-icon">🌐</span>
+            <div class="scenario-text">
+              <strong>Wire Transfer & AML Gate</strong>
+              <span>Compliance agent runs OFAC & CTR approval gate</span>
+            </div>
+          </button>
+
+          <button class="scenario-btn" data-prompt="Give me an overview of my accounts and balance">
+            <span class="scenario-icon">📊</span>
+            <div class="scenario-text">
+              <strong>Account 360 & Spending Audit</strong>
+              <span>Customer agent retrieves full multi-account view</span>
+            </div>
+          </button>
+
+          <button class="scenario-btn" data-prompt="I lost my card at the airport! Block it immediately">
+            <span class="scenario-icon">🔒</span>
+            <div class="scenario-text">
+              <strong>Lost Card Emergency Lock</strong>
+              <span>Deactivates physical card & provisions virtual</span>
+            </div>
+          </button>
+
+          <button class="scenario-btn" data-prompt="Analyze my spending and give me recommendations to save $500/month">
+            <span class="scenario-icon">💡</span>
+            <div class="scenario-text">
+              <strong>Financial Advisory & Savings</strong>
+              <span>Advisory agent designs wealth yield plan</span>
+            </div>
+          </button>
+
+        </div>
+      </section>
+
+      <!-- Recent Transactions Table -->
+      <section style="flex:1;">
+        <div class="panel-header">
+          <span>Recent Activity & Risk Ledger</span>
+        </div>
+        <div id="transactionsContainer" style="display:flex; flex-direction:column; gap:6px;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- CENTER COLUMN: Multi-Agent Conversational Center -->
+    <section class="center-workspace">
+      
+      <!-- Real-time Agent Workflow Stepper -->
+      <div class="pipeline-stepper" id="pipelineStepper">
+        <div class="step-badge active">
+          <span>1.</span>
+          <span>Supervisor Ready • Awaiting Command</span>
+        </div>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="chat-stream" id="chatStream">
+        
+        <!-- Welcome Hero Banner -->
+        <div style="text-align: center; padding: 28px 20px; color: var(--text-secondary);">
+          <div style="font-size: 2.4rem; margin-bottom: 10px;">🏛️</div>
+          <h2 style="font-size: 1.3rem; color: #fff; margin-bottom: 6px; font-weight:700;">
+            NEXUS Autonomous Multi-Agent Banking
+          </h2>
+          <p style="font-size: 0.86rem; max-width: 540px; margin: 0 auto; color:#94a3b8; line-height:1.6;">
+            Experience multi-agent collaboration in a simulated enterprise banking environment.
+            Specialized agents collaborate in real-time with live core banking tools, zero-trust PII redaction, and human-in-the-loop compliance gates.
+          </p>
+          <div style="margin-top:16px; font-size:0.75rem; color:var(--accent-cyan); display:inline-flex; align-items:center; gap:8px; padding:6px 14px; background:rgba(56,189,248,0.1); border-radius:9999px; border:1px solid rgba(56,189,248,0.25);">
+            <span>👉 Click any of the 6 test scenarios on the left or type your prompt below!</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Input Form -->
+      <footer class="chat-input-bar">
+        <form id="chatForm" class="input-container">
+          <input 
+            type="text" 
+            id="chatInput" 
+            placeholder="Ask a question, query loans, flag suspicious transactions, or request wires..." 
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="send-btn" title="Send Request">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </footer>
+
+    </section>
+
+    <!-- RIGHT COLUMN: Real-Time Observability & AI Control Plane -->
+    <aside class="right-sidebar">
+      
+      <!-- Trace Header -->
+      <div class="panel-header">
+        <span>Trace Observability</span>
+        <span id="traceIdDisplay" style="font-family:var(--font-mono); font-size:0.68rem; color:var(--accent-cyan);">TRC-STANDBY</span>
+      </div>
+
+      <!-- Metrics Grid -->
+      <div class="metrics-grid">
+        <div class="metric-pill">
+          <div class="label">Latency</div>
+          <div class="val" id="latencyMetricVal">0 ms</div>
+        </div>
+        <div class="metric-pill">
+          <div class="label">Tokens</div>
+          <div class="val" id="tokensMetricVal">0</div>
+        </div>
+        <div class="metric-pill">
+          <div class="label">FinOps Cost</div>
+          <div class="val" id="costMetricVal">$0.0000</div>
+        </div>
+      </div>
+
+      <!-- AI Control Plane / Guardrails Card -->
+      <div class="glass" style="padding:12px; border-radius:var(--radius-md);">
+        <div style="font-size:0.74rem; font-weight:700; color:#cbd5e1; margin-bottom:6px; display:flex; justify-content:space-between;">
+          <span>AI Gateway Controls</span>
+          <span style="color:var(--accent-emerald)">Active ●</span>
+        </div>
+        <div style="font-size:0.7rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom:4px;">
+          <span>PII Masking Filter:</span>
+          <strong id="piiRedactedMetricVal" style="color:var(--accent-cyan)">0 Redacted</strong>
+        </div>
+        <div style="font-size:0.7rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom:4px;">
+          <span>MCP Tools Registered:</span>
+          <strong id="toolsRegisteredVal" style="color:#f8fafc">11 Tools</strong>
+        </div>
+        <div style="font-size:0.7rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+          <span>Total PII Shielded:</span>
+          <strong id="totalPiiVal" style="color:var(--accent-purple)">0 entities</strong>
+        </div>
+      </div>
+
+      <!-- Dynamic Multi-Agent DAG Topology Graph -->
+      <div>
+        <div class="panel-header">
+          <span>Active Agent Swarm Topology</span>
+        </div>
+        <div class="dag-container">
+          <svg id="dagSvg" viewBox="0 0 340 180"></svg>
+        </div>
+      </div>
+
+      <!-- Agent Reasoning Trajectory Timeline -->
+      <div style="flex:1;">
+        <div class="panel-header">
+          <span>Agent Trajectory & MCP Tool Calls</span>
+        </div>
+        <div class="trajectory-list" id="trajectoryList">
+          <div style="font-size:0.75rem; color:var(--text-muted); padding:10px; text-align:center;">
+            Awaiting prompt execution...
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- MODAL: Architecture Blueprint (Matching Prompt's Reference Diagram) -->
+  <div class="modal-overlay" id="archModal">
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h3 style="font-size:1.15rem; color:#fff;">🏛️ NEXUS Multi-Agent Banking Architecture (Reference Implementation)</h3>
+        <button class="close-btn" id="closeArchModal">&times;</button>
+      </div>
+
+      <div style="font-size:0.82rem; color:#cbd5e1; margin-bottom:16px; line-height:1.6;">
+        This MVP demonstrates the complete 9-layer target architecture from the enterprise banking blueprint, functioning as an integrated autonomous system.
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#38bdf8">
+        <h4>1. Banking Channels / Users</h4>
+        <p>Interactive Web Banking, Mobile Banking simulator, and Relationship Manager portal with real-time bidirectional messaging.</p>
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#6366f1">
+        <h4>2. API & Experience Layer</h4>
+        <p>Session management, Trace/Correlation ID tracking, request validation, threat protection, and simulated rate limiting.</p>
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#10b981">
+        <h4>3. AI Gateway / AI Control Plane</h4>
+        <p>Zero-Trust PII Detection & Redaction (SSN, PAN, CVV), Prompt Injection Guardrails, Content Safety, Token Budget enforcement, and Cost Telemetry.</p>
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#f59e0b">
+        <h4>4. Multi-Agent Orchestrator (Supervisor & Specialists)</h4>
+        <p>
+          <strong>Supervisor Agent:</strong> Intent classification, task decomposition, workflow DAG management, and human escalation.<br/>
+          <strong>Specialized Agents:</strong> Customer Agent, Banking Product Agent, Risk / Fraud Agent, Credit & Loan Underwriting Agent, Compliance (AML/OFAC) Agent, Financial Advisory Agent, Notification Agent.
+        </p>
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#a855f7">
+        <h4>5. Agent Tool / MCP Layer</h4>
+        <p>Type-safe MCP Tool catalog with schema validation, permission boundary enforcement, sandbox execution, and audit logging (Core Banking APIs, Card APIs, Credit Bureau, AML, Notifications).</p>
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#06b6d4">
+        <h4>6. Enterprise Data & Customer 360</h4>
+        <p>Simulated multi-persona core banking ledger, transaction history with geo-velocity tags, credit ratings, and linked payment instruments.</p>
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#ec4899">
+        <h4>7. Knowledge / RAG Engine</h4>
+        <p>Hybrid lexical + BM25 search over official Bank Policies: Credit Lending Directives (POL-CREDIT-001), Card Dispute SOP (POL-FRAUD-002), BSA/AML Compliance Regulations (POL-COMPLIANCE-003).</p>
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#84cc16">
+        <h4>8. External Services Simulation</h4>
+        <p>Credit Bureau Consortium (Equifax/Experian FICO pull), OFAC / PEP Sanctions list, Fedwire / SWIFT clearing simulation.</p>
+      </div>
+
+      <div class="arch-layer-card" style="border-color:#f43f5e">
+        <h4>9. Cross-Cutting Production Platform</h4>
+        <p>Real-time Observability (execution trajectories, tool arguments, latency ms, token metrics), FinOps cost tracking, and Audit compliance logging.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Settings & API Key -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-content glass" style="max-width:500px;">
+      <div class="modal-header">
+        <h3 style="font-size:1.1rem; color:#fff;">⚙️ AI Provider & Model Settings</h3>
+        <button class="close-btn" id="closeSettingsModal">&times;</button>
+      </div>
+
+      <div style="font-size:0.8rem; color:#cbd5e1; margin-bottom:14px;">
+        Choose between the <strong>Built-in Cognitive Engine</strong> (100% offline, zero-key required) or connect your live API key:
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">Active AI Engine</label>
+        <select id="modalProviderSelect" class="select-custom" style="width:100%;">
+          <option value="cognitive">⚡ Built-in Cognitive Multi-Agent Engine (Offline/Zero-Key)</option>
+          <option value="gemini">✨ Google Gemini 2.5 Flash</option>
+          <option value="openai">🔮 OpenAI GPT-4o</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">API Key (Optional)</label>
+        <input 
+          type="password" 
+          id="apiKeyInput" 
+          placeholder="AIzaSy... or sk-proj-..." 
+          class="select-custom" 
+          style="width:100%; padding:10px; font-family:var(--font-mono); font-size:0.8rem;"
+        />
+        <p style="font-size:0.68rem; color:var(--text-muted); margin-top:4px;">
+          Left blank? The system runs with full multi-agent reasoning using the Built-in Cognitive Engine.
+        </p>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button class="btn-custom" onclick="closeSettingsModal()">Cancel</button>
+        <button class="btn-custom btn-primary" id="saveSettingsBtn">Save Configuration</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/visualizer.js"></script>
+  <script src="/static/js/app.js"></script>
+
+</body>
+</html>
