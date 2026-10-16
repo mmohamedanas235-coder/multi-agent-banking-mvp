@@ -434,7 +434,7 @@ class CognitiveBankingEngine:
             return trace
 
         # ----------------- USE CASE 4: ACCOUNT 360 & SPENDING AUDIT -----------------
-        elif any(w in msg for w in ["balance", "account", "overview", "spend", "audit", "summary", "how much", "transactions"]):
+        elif any(w in msg for w in ["balance", "account", "overview", "audit", "summary", "how much", "transactions"]) or ("spend" in msg and not any(s in msg for s in ["save", "advisory", "invest", "recommend", "budget"])):
             trace.intent = "CUSTOMER_360_AND_SPENDING_AUDIT"
             trace.workflow_dag = [
                 "Supervisor -> Task Decomposition",
